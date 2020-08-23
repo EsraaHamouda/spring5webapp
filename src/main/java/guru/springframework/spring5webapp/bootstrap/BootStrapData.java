@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 
 @Component
-public class BootstrapData implements CommandLineRunner {
+public class BootStrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
     private final PublisherRepository publisherRepository;
 
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
@@ -51,6 +51,11 @@ public class BootstrapData implements CommandLineRunner {
         book1.setPublisher(publisher);
         publisher.getBooks().add(book2);
         book2.setPublisher(publisher);
+
+        publisherRepository.save(publisher);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
         System.out.println("Started in bootstrap");
 
         System.out.printf("Number of publisher: %d \n", publisherRepository.count());
